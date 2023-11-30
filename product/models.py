@@ -28,3 +28,45 @@ class ProductImage(models.Model):
 
     def __str__(self):
         return str(self.PRDIProduct)
+
+
+
+
+
+class Category(models.Model):
+    CATName = models.CharField(max_length=50)
+    CATParent = models.ForeignKey('self' ,limit_choices_to={'CATParent__isnull':True} , on_delete= models.CASCADE , blank=True, null=True) 
+    CATDesc = models.TextField()
+    CATImg = models.ImageField(upload_to='category/')
+
+    class Meta:
+            verbose_name = _("Category")
+            verbose_name_plural = _("Categories")
+
+    def __str__(self):
+        return self.CATName
+    
+
+
+
+
+
+
+class Product_Alternative(models.Model):
+    PALNProduct = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='main_product')
+    PALNAlternative = models.ManyToManyField(Product, related_name="alternative_product")
+
+    
+
+    class Meta:
+        verbose_name = _("Product Alternative")
+        verbose_name_plural = _("Product Alternatives")
+
+    def __str__(self):
+        return self.name
+
+ 
+
+
+
+ 
