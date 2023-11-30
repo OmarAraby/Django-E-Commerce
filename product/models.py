@@ -12,7 +12,7 @@ class Product(models.Model):
     PRDDesc = models.TextField(verbose_name=_("Product Description"))
     PRDPrice = models.DecimalField(max_digits=8 , decimal_places=2 , verbose_name=_("Price"))
     PRDCost = models.DecimalField(max_digits=8 , decimal_places=2 , verbose_name=_("Cost"))
-    PRDCreated = models.DateTimeField(verbose_name=_("Created at"))
+    PRDCreated = models.DateTimeField(auto_now=True , verbose_name=_("Created at"))
 
 
     def __str__(self):
@@ -34,10 +34,10 @@ class ProductImage(models.Model):
 
 
 class Category(models.Model):
-    CATName = models.CharField(max_length=50)
-    CATParent = models.ForeignKey('self' ,limit_choices_to={'CATParent__isnull':True} , on_delete= models.CASCADE , blank=True, null=True) 
-    CATDesc = models.TextField()
-    CATImg = models.ImageField(upload_to='category/')
+    CATName = models.CharField(max_length=50 , verbose_name=_('Name'))
+    CATParent = models.ForeignKey('self' ,limit_choices_to={'CATParent__isnull':True} , verbose_name=_('MAin Category'),on_delete= models.CASCADE , blank=True, null=True) 
+    CATDesc = models.TextField(verbose_name=_('Description'))
+    CATImg = models.ImageField(upload_to='category/' ,verbose_name=_('Image'))
 
     class Meta:
             verbose_name = _("Category")
@@ -53,8 +53,8 @@ class Category(models.Model):
 
 
 class Product_Alternative(models.Model):
-    PALNProduct = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='main_product')
-    PALNAlternative = models.ManyToManyField(Product, related_name="alternative_product")
+    PALNProduct = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='main_product', verbose_name=_('Product'))
+    PALNAlternative = models.ManyToManyField(Product, related_name="alternative_product", verbose_name=_('Alternative'))
 
     
 
@@ -63,10 +63,21 @@ class Product_Alternative(models.Model):
         verbose_name_plural = _("Product Alternatives")
 
     def __str__(self):
-        return self.name
+        return str(self.PALNProduct)
 
  
 
 
 
- 
+class Product_Accessories(models.Model):
+    PACCProduct = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='mainAccessory_product',verbose_name=_('Product'))
+    PACCAlternative = models.ManyToManyField(Product, related_name="accessories_product",verbose_name=_('Accessories'))
+
+    
+
+    class Meta:
+        verbose_name = _("Product Accessory")
+        verbose_name_plural = _("Product Accessories")
+
+    def __str__(self):
+        return str(self.PACCProduct)
