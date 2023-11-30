@@ -8,7 +8,8 @@ from django.utils.translation import gettext_lazy as _               ## For tran
 
 class Product(models.Model):
     PRDName =  models.CharField(max_length=50, verbose_name=_("Product Name"))
-    # Category
+    PRDCategory = models.ForeignKey('Category', on_delete=models.CASCADE,blank=True, null=True ,verbose_name=_("Category"))
+    PRDBrand = models.ForeignKey('settings.Brand', on_delete=models.CASCADE ,blank=True, null=True ,verbose_name=_("Brand"))
     PRDDesc = models.TextField(verbose_name=_("Product Description"))
     PRDPrice = models.DecimalField(max_digits=8 , decimal_places=2 , verbose_name=_("Price"))
     PRDCost = models.DecimalField(max_digits=8 , decimal_places=2 , verbose_name=_("Cost"))
