@@ -491,6 +491,13 @@ progress {
   font-weight: 300;
 }
 
+
+.product_img{
+
+  max-height: 180px;
+}
+
+
 .display-1 {
   font-size: calc(1.625rem + 4.5vw);
   font-weight: 300;
@@ -8297,6 +8304,37 @@ textarea.form-control-lg {
 .invisible {
   visibility: hidden !important;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @media (min-width: 576px) {
   .float-sm-start {

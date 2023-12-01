@@ -11,6 +11,7 @@ class Product(models.Model):
     PRDCategory = models.ForeignKey('Category', on_delete=models.CASCADE,blank=True, null=True ,verbose_name=_("Category"))
     PRDBrand = models.ForeignKey('settings.Brand', on_delete=models.CASCADE ,blank=True, null=True ,verbose_name=_("Brand"))
     PRDDesc = models.TextField(verbose_name=_("Product Description"))
+    PRDImage = models.ImageField(upload_to='product_image/',verbose_name=_("Image") , blank=True , null=True)
     PRDPrice = models.DecimalField(max_digits=8 , decimal_places=2 , verbose_name=_("Price"))
     PRDCost = models.DecimalField(max_digits=8 , decimal_places=2 , verbose_name=_("Cost"))
     PRDCreated = models.DateTimeField(auto_now=True , verbose_name=_("Created at"))
