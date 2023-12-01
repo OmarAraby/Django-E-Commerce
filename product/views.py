@@ -17,5 +17,12 @@ def product_list(request):
 
 
 
-def product_detail(request):
-    pass
+def product_detail(request,id):
+    product_detail = Product.objects.get(id=id)
+    context = {'product_detail':product_detail}
+    
+
+    return render(request,'Product/product_detail.html',context)
+
+
+    
