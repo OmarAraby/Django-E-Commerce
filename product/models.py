@@ -14,10 +14,13 @@ class Product(models.Model):
     PRDDesc = models.TextField(verbose_name=_("Product Description"))
     PRDImage = models.ImageField(upload_to='product_image/',verbose_name=_("Image") , blank=True , null=True)
     PRDPrice = models.DecimalField(max_digits=8 , decimal_places=2 , verbose_name=_("Price"))
+    PRDDiscountPrice = models.DecimalField(max_digits=8 , decimal_places=2 , verbose_name=_("Discount Price"))
     PRDCost = models.DecimalField(max_digits=8 , decimal_places=2 , verbose_name=_("Cost"))
     PRDCreated = models.DateTimeField(auto_now=True , verbose_name=_("Created at"))
+    
     PRDSlug = models.SlugField(blank=True, null=True)
-
+    PRDISNew = models.BooleanField(default=True)
+    PRDISBestSeller = models.BooleanField(default=False)
 
 
     class Meta:

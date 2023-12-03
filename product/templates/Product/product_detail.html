@@ -19,11 +19,33 @@
                     <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="{% static "img/no image.jpg" %}" alt="..." /></div>
                     {% endif %}
                     <div class="col-md-6">
-                        
+
+                        {% if product_detail.PRDDiscountPrice > 0 %}
+                         <span class="badge green">SALE</span>
+                        {% endif %}
+
+                        {% if product_detail.PRDISNew %}
+                        <span class="badge blue">NEW</span>
+                        {% endif %}
+
+                        {% if product_detail.PRDISBestSeller %}
+                        <span class="badge red">Bestseller</span>
+                        {% endif %}
+
+
+
                         <h1 class="display-5 fw-bolder">{{product_detail}}</h1>
                         <div class="small mb-1">{{product_detail.PRDCategory}}</div>
+                        
                         <div class="fs-5 mb-5">
-                            <span>$ {{product_detail.PRDPrice}}</span>
+                            {% if product_detail.PRDDiscountPrice > 0 %}
+                                <span>
+                                <del>$ {{product_detail.PRDPrice}} </del> 
+                                </span>
+                                <span>   $ {{product_detail.PRDDiscountPrice}}</span>
+                            {% else %}
+                                <span>$ {{product_detail.PRDPrice}}</span>
+                            {% endif %}
                         </div>
                         <p class="lead">{{product_detail.PRDDesc}}</p>
                         <div class="d-flex">

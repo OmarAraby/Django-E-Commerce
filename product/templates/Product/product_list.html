@@ -33,7 +33,20 @@
                                     {% comment %} <p>{{product.PRDDesc}}</p> {% endcomment %}
                                     <!-- Product price-->
                                     $ {{product.PRDPrice}}
-                                    <span class="badge blue">NEW</span>
+
+                                  
+                                    {% if product.PRDDiscountPrice > 0 %}
+                                    <div class="badge green text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
+                                    {% endif %}
+                                <p>
+                                    {% if product.PRDISNew %}
+                                        <span class="badge blue">NEW</span>
+                                    {% endif %}
+
+                                    {% if product.PRDISBestSeller %}
+                                        <span class="badge red">Bestseller</span>
+                                    {% endif %}
+                                </p>
                                 </div>
                             </div>
                             <!-- Product actions-->
