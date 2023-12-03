@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _               ## For translations
+from django.utils.text import slugify
 
 # Create your models here.
 
@@ -15,12 +16,37 @@ class Product(models.Model):
     PRDPrice = models.DecimalField(max_digits=8 , decimal_places=2 , verbose_name=_("Price"))
     PRDCost = models.DecimalField(max_digits=8 , decimal_places=2 , verbose_name=_("Cost"))
     PRDCreated = models.DateTimeField(auto_now=True , verbose_name=_("Created at"))
+    PRDSlug = models.SlugField(blank=True, null=True)
+
+
+
+    class Meta:
+            verbose_name = _("Product")
+            verbose_name_plural = _("Products")
+
+    
+
+
+    def save(self, *args, **kwargs):
+        if not self.PRDSlug:
+            self.PRDSlug =slugify(self.PRDName)
+
+        super(Product , self).save(*args , **kwargs)
+    
+
+
+
+
 
 
     def __str__(self):
         return self.PRDName
 
     
+
+
+
+
 
 
 class ProductImage(models.Model):
@@ -35,11 +61,14 @@ class ProductImage(models.Model):
 
 
 
+
+
+
 class Category(models.Model):
     CATName = models.CharField(max_length=50 , verbose_name=_('Name'))
     CATParent = models.ForeignKey('self' ,limit_choices_to={'CATParent__isnull':True} , verbose_name=_('MAin Category'),on_delete= models.CASCADE , blank=True, null=True) 
     CATDesc = models.TextField(verbose_name=_('Description'))
-    CATImg = models.ImageField(upload_to='category/' ,verbose_name=_('Image'))
+    CATImg = models.ImageField(upload_to='category/' ,verbose_name=_('Image'),blank=True, null=True)
 
     class Meta:
             verbose_name = _("Category")
@@ -48,6 +77,9 @@ class Category(models.Model):
     def __str__(self):
         return self.CATName
     
+
+
+
 
 
 
@@ -68,6 +100,11 @@ class Product_Alternative(models.Model):
         return str(self.PALNProduct)
 
  
+
+
+
+
+
 
 
 

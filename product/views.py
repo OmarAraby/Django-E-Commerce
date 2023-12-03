@@ -9,7 +9,7 @@ from .models import Product
 
 def product_list(request):
     product_list = Product.objects.all()
-    paginator = Paginator(product_list, 1)  # Show 25 contacts per page.
+    paginator = Paginator(product_list, 4)  # Show X Products per page.
 
     page_number = request.GET.get("page")
     product_list = paginator.get_page(page_number)
@@ -22,8 +22,9 @@ def product_list(request):
 
 
 
-def product_detail(request,id):
-    product_detail = Product.objects.get(id=id)
+def product_detail(request,slug):
+    product_detail = Product.objects.get(PRDSlug=slug)
+    #related_product = Product.objects.all().filter(category=product_detail.PRDCategory)[0:5]
     context = {'product_detail':product_detail}
     
 

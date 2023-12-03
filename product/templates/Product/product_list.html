@@ -4,7 +4,7 @@
 {% load static %}
 
 
-{% block content %}
+{% block body %}
         <!-- Section-->
         <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
@@ -15,18 +15,25 @@
 
                             {% if product.PRDImage %}
                             <!-- Product image-->
+                            <a href="{% url "product:product_detail" product.PRDSlug %}">
                                 <img class="card-img-top product_img" src="{{product.PRDImage.url}}" alt="..." />
+                            </a>
                             {% else %}
-                            <img class="card-img-top product_img" src="{% static "img/no image.jpg" %}" alt="..." />
+                            <a href="{% url "product:product_detail" product.id %}">
+                                <img class="card-img-top product_img" src="{% static "img/no image.jpg" %}" alt="..." />
+                            </a>
                             {% endif %}
                             <!-- Product details-->
                             <div class="card-body p-4">
                                 <div class="text-center">
                                     <!-- Product name-->
-                                    <h5 class="fw-bolder">{{product}}</h5>
-                                    <p>{{product.PRDDesc}}</p>
+                                    <h6>{{product.PRDCategory}}</h6>
+                                    <h5 class="fw-bolder"><a href="{% url "product:product_detail" product.PRDSlug %}"> {{product}}</a></h5>
+
+                                    {% comment %} <p>{{product.PRDDesc}}</p> {% endcomment %}
                                     <!-- Product price-->
-                                    {{product.PRDPrice}}
+                                    $ {{product.PRDPrice}}
+                                    <span class="badge blue">NEW</span>
                                 </div>
                             </div>
                             <!-- Product actions-->
@@ -269,6 +276,6 @@
 
 
 
-{% endblock content %}
+{% endblock body %}
 
 
