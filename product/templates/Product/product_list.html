@@ -5,6 +5,8 @@
 
 
 {% block body %}
+
+
         <!-- Section-->
         <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
@@ -15,11 +17,11 @@
 
                             {% if product.PRDImage %}
                             <!-- Product image-->
-                            <a href="{% url "product:product_detail" product.PRDSlug %}">
+                            <a href="{{product.get_absolute_url}}">
                                 <img class="card-img-top product_img" src="{{product.PRDImage.url}}" alt="..." />
                             </a>
                             {% else %}
-                            <a href="{% url "product:product_detail" product.id %}">
+                            <a href="{{product.get_absolute_url}}">
                                 <img class="card-img-top product_img" src="{% static "img/no image.jpg" %}" alt="..." />
                             </a>
                             {% endif %}
@@ -28,7 +30,7 @@
                                 <div class="text-center">
                                     <!-- Product name-->
                                     <h6>{{product.PRDCategory}}</h6>
-                                    <h5 class="fw-bolder"><a href="{% url "product:product_detail" product.PRDSlug %}"> {{product}}</a></h5>
+                                    <h5 class="fw-bolder"><a href="{{product.get_absolute_url}}"> {{product}}</a></h5>
 
                                     {% comment %} <p>{{product.PRDDesc}}</p> {% endcomment %}
                                     <!-- Product price-->

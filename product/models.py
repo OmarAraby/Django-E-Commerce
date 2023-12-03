@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _               ## For translations
 from django.utils.text import slugify
+from django.urls import reverse
 
 # Create your models here.
 
@@ -14,20 +15,13 @@ class Product(models.Model):
     PRDDesc = models.TextField(verbose_name=_("Product Description"))
     PRDImage = models.ImageField(upload_to='product_image/',verbose_name=_("Image") , blank=True , null=True)
     PRDPrice = models.DecimalField(max_digits=8 , decimal_places=2 , verbose_name=_("Price"))
-    PRDDiscountPrice = models.DecimalField(max_digits=8 , decimal_places=2 , verbose_name=_("Discount Price"))
+    PRDDiscountPrice = models.DecimalField(max_digits=8 , decimal_places=2 , blank=True, null=True,verbose_name=_("Discount Price"))
     PRDCost = models.DecimalField(max_digits=8 , decimal_places=2 , verbose_name=_("Cost"))
     PRDCreated = models.DateTimeField(auto_now=True , verbose_name=_("Created at"))
     
-    PRDSlug = models.SlugField(blank=True, null=True)
-    PRDISNew = models.BooleanField(default=True)
-    PRDISBestSeller = models.BooleanField(default=False)
-
-
-    class Meta:
-            verbose_name = _("Product")
-            verbose_name_plural = _("Products")
-
-    
+    PRDSlug = models.SlugField(blank=True, null=True, verbose_name=_("Product URL"))
+    PRDISNew = models.BooleanField(default=True ,verbose_name=_("New Product"))
+    PRDISBestSeller = models.BooleanField(default=False, verbose_name=_("Best Seller"))
 
 
     def save(self, *args, **kwargs):
@@ -38,14 +32,23 @@ class Product(models.Model):
     
 
 
+    class Meta:
+            verbose_name = _("Product")
+            verbose_name_plural = _("Products")
 
 
+
+    def get_absolute_url(self):
+        return reverse("product:product_detail", kwargs={"slug": self.PRDSlug})
+        
 
 
     def __str__(self):
         return self.PRDName
 
     
+
+
 
 
 
