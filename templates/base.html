@@ -42,9 +42,14 @@
                             <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
                         </button>
                     </form>
+               
                     <ul class="navbar-nav">
-                        <li class="fas fa-sign-in-alt mr-2"><a class="nav-link" href="#!">Login</a></li>
-                        <li class="fas fa-user-plus"><a class="nav-link" href="#!">Signup</a></li>
+                        {% if user.is_authenticated %}
+                        <li class="fas fa-user-circle"><a class="nav-link" href="{% url "login" %}">Profile</a></li>
+                        {% else %}
+                        <li class="fas fa-sign-in-alt mr-2"><a class="nav-link" href="{% url "login" %}">Login</a></li>
+                        <li class="fas fa-user-plus"><a class="nav-link" href="{% url 'accounts:signup' %}">Signup</a></li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>
