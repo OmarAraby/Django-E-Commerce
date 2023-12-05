@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+{% load bootstrap4 %}
+
 
 {% block body %}
 
@@ -19,24 +21,17 @@
 
 <form method="post" action="{% url 'login' %}">
 {% csrf_token %}
-<table>
-<tr>
-    <td>{{ form.username.label_tag }}</td>
-    <td>{{ form.username }}</td>
-</tr>
-<tr>
-    <td>{{ form.password.label_tag }}</td>
-    <td>{{ form.password }}</td>
-</tr>
-</table>
+
+{% bootstrap_form form %}
 
 <input type="submit" class="btn btn-primary" value="login">
 <input type="hidden" name="next" value="{{ next }}">
+<p><a href="{% url 'password_reset' %}">Lost password?</a></p>
+
 </form>
 
 {# Assumes you set up the password_reset view in your URLconf #}
-<p><a href="{% url 'password_reset' %}">Lost password?</a></p>
-
+            
  
     </div>
 </main>

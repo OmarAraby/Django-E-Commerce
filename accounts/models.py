@@ -14,6 +14,7 @@ from django.db.models.signals import post_save
 class Profile(models.Model):
     user = models.OneToOneField(User, verbose_name=_("user"), on_delete=models.CASCADE)
     slug = models.SlugField(blank=True , null=True)
+    phone_number = models.CharField(max_length=15 ,blank=True, null=True , verbose_name=_("Phone Number"))
     image = models.ImageField(_("Image"), upload_to="profile_image",blank=True, null=True)
     country = CountryField() 
     address = models.CharField(max_length=100)
