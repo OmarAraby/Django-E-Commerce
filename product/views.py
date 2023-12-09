@@ -14,8 +14,7 @@ def product_list(request):
     myfilter = ProductFilter(request.GET, queryset=product_list)
     product_list = myfilter.qs
 
-    cate_filter = CategoryFilter(request.GET, queryset=product_list)
-    product_list = cate_filter.qs
+   
 
 
 
@@ -28,7 +27,7 @@ def product_list(request):
     #category = Category.objects.all()
 
 
-    context = {'products':product_list , 'myfilter':myfilter,'cate_filter':cate_filter}
+    context = {'products':product_list , 'myfilter':myfilter}
     return render(request, 'Product/product_list.html', context)
 
 
@@ -66,8 +65,10 @@ def product_detail(request,slug):
 def category_detail(request, slug):
     category = get_object_or_404(Category, CATSlug=slug)
     products = Product.objects.filter(PRDCategory=category)
+    myfilter = CategoryFilter(request.GET, queryset=products)
+    products = myfilter.qs
 
-    context = {'category': category, 'products': products}
+    context = {'category': category, 'products': products,'myfilter':myfilter}
     return render(request, 'Category/category_detail.html', context)
 
 

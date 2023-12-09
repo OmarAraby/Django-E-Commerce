@@ -16,5 +16,5 @@ class CategoryFilter(django_filters.FilterSet):
     
     class Meta:
         model = Product
-        fields = ['PRDCategory']
+        fields = ['PRDBrand']
         
