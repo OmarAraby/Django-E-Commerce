@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% load static %}
-{% load bootstrap4 %}
 
 {% block body %}
 
@@ -8,8 +7,8 @@
 <header class="bg-dark py-5">
     <div class="container px-4 px-lg-5 my-5">
         <div class="text-center text-white">
-            <h1 class="display-4 fw-bolder">Category: {{category}}</h1>
-            <p class="lead fw-normal text-white-50 mb-0">Explore {{category}}'s Section</p>
+            <h1 class="display-4 fw-bolder">Cart</h1>
+            <p class="lead fw-normal text-white-50 mb-0">Explore Your Cart Section</p>
         </div>
     </div>
 </header>
@@ -18,20 +17,7 @@
     <div class="container px-4 px-lg-5 mt-5">
 
     <div class="row ">
-            <div class="col-lg-3">
-                <div>
-                    <div class="form_inner" style="padding: 20px; margin: 10px;">
-                        <h3>Filter</h3>
-                        <form method="GET">
-                            {% bootstrap_form myfilter.form %}
-                           <div style="border-top: 1px solid #ccc; margin-top: 10px; padding-top: 10px;">
-                                <input type='submit' value='Search' class='btn btn-outline-dark mt-auto'>
-                                <a href="?{% if myfilter.form.q %}{{ myfilter.form.q.name }}={% endif %}" class="btn btn-outline-dark mt-auto">Reset</a>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+    
 
 
 
@@ -86,30 +72,10 @@
     </div>
 </section>
 
-<nav aria-label="Page navigation example">
-    {% if products.has_other_pages %}
-    <ul class="pagination justify-content-center">
-        {% if products.has_previous %}
-        <li class="page-item ">
-            <a class="page-link" href="?page={{ products.previous_page_number }}" tabindex="-1">Previous</a>
-        </li>
-        {% endif %}
-
-        {% for pages in products.paginator.page_range %}
-        <li class="page-item"><a class="page-link" href="?page={{pages}}">{{pages}}</a></li>
-        {% endfor %}
-
-        {% if products.has_next %}
-        <li class="page-item">
-            <a class="page-link" href="?page={{ products.next_page_number }}">Next</a>
-        </li>
-        {% endif %}
-    </ul>
-    {% endif %}
-</nav>
-
-<!-- End Section-->
 
 <h1> </h1>
 
+	
 {% endblock body %}
+
+

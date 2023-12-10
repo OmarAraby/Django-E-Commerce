@@ -23,9 +23,12 @@
                 <div>
                     <div class="form_inner">
                         <h3>Filter</h3>
-                        <form method="GET">
+                        <form method="GET" style="padding: 20px; margin: 10px;">
                             {% bootstrap_form myfilter.form %}
-                            <input type='submit' value='Search' class='btn btn-outline-dark mt-auto'>
+                            <div style="border-top: 1px solid #ccc; margin-top: 10px; padding-top: 10px;">
+                                <input type='submit' value='Search' class='btn btn-outline-dark mt-auto'>
+                                <a href="?{% if myfilter.form.q %}{{ myfilter.form.q.name }}={% endif %}" class="btn btn-outline-dark mt-auto">Reset</a>
+                            </div>
                         </form>
                     </div>
                 </div>
