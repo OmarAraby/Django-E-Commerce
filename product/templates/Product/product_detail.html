@@ -49,12 +49,30 @@
                         </div>
                         <p class="lead">{{product_detail.PRDDesc}}</p>
                         <div class="d-flex">
-                            <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
-                            <button class="btn btn-outline-dark flex-shrink-0" type="button" value="{{product_detail.id}}" id="add-cart">
-                                <i class="bi-cart-fill me-1"></i>
-                                Add to cart
-                            </button>
+                             <div class="col-md-2">Quantity:</div>
+                                <div class="col-md-2">
+                                <select class="form-select form-select-sm" id="qty-cart">
+                                  <option value="1">1</option>
+                                  <option value="2">2</option>
+                                  <option value="3">3</option>
+                                  <option value="4">4</option>
+                                  <option value="5">5</option>
+                                  <option value="6">6</option>
+                                  <option value="7">7</option>
+                                  <option value="8">8</option>
+                                  <option value="9">9</option>
+                                  <option value="10">10</option>
+                                  <option value="11">11</option>
+                                  <option value="12">12</option>
+                                </select>
+                                </div>
+                                    <button style="margin-left: 50px;" class="btn btn-outline-dark flex-shrink-0" type="button" value="{{product_detail.PRDSlug }}" id="add-cart">
+                                        <i class="bi-cart-fill me-1"></i>
+                                        Add to cart
+                                     </button>
                         </div>
+                        
+                        
                     </div>
                 </div>
             </div>
@@ -111,19 +129,20 @@ $(document).on('click', '#add-cart', function(e) {
         type: 'POST',
         url: '{% url 'cart:cart_add' %}',
         data: {
-            product_id: $('#add-cart').val(),
+            product_slug: $('#add-cart').val(),  // Use product_slug instead of product_id
+            product_qty: $('#qty-cart option:selected').text(),
             csrfmiddlewaretoken: '{{ csrf_token }}',
             action: 'post'
         },
         success: function(json) {
-            //console.log(json);
-            document.getElementById("cart_quantity").textContent = json.qty
+            document.getElementById("cart_quantity").textContent = json.qty;
         },
         error: function(xhr, errmsg, err) {
             // Handle errors
         }
     });
 });
+
 
 
 </script>

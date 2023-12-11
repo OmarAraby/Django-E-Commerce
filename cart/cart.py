@@ -22,19 +22,17 @@ class Cart():
 		self.cart = cart
 
 
-	def add(self,product):
-		product_id = str(product.id)
+	def add(self, product, quantity):
+	    product_slug = product.PRDSlug
+	    product_qty = str(quantity)
 
-		## Logic
+	    if product_slug in self.cart:
+	        # If the product is already in the cart, you can implement your logic here
+	        pass
+	    else:
+	        self.cart[product_slug] = int(product_qty)
 
-		if product_id in self.cart:
-			pass
-
-		else:
-			self.cart[product_id] = {'price':str(product.PRDPrice)}
-
-
-		self.session.modified = True
+	    self.session.modified = True
 
 
 
@@ -45,16 +43,52 @@ class Cart():
 
 
 	def get_prods(self):
-		# Get ids from cart
-		product_id = self.cart.keys()
+    	# Get slugs from cart
+	    product_slugs = self.cart.keys()
 
-		# Use ids to lookup product in database model
+	    # Use slugs to lookup products in the database model
+	    products = Product.objects.filter(PRDSlug__in=product_slugs)
 
-		products = Product.objects.filter(id__in=product_id)
-
-		return products
-
+	    return products
 
 
 
+	def get_quants(self):
+	    quantity = self.cart
+	    return quantity 
+
+	def get_all_total_prices(self):
+	    total_price = 0
+
+	    for product_slug, quantity_value in self.cart.items():
+	        product = Product.objects.get(PRDSlug=product_slug)
+	        total_price += product.PRDPrice * quantity_value
+
+	    return total_price
+
+	def get_single_total_price(self):
+	    total_price = {}
+
+	    for product_slug, quantity_value in self.cart.items():
+	        product = Product.objects.get(PRDSlug=product_slug)
+	        total_price[product_slug] = product.PRDPrice * quantity_value
+
+	    return total_price
+
+
+
+
+	def update(self, product, quantity):
+		product_slug = str(product)
+		product_qty = int(quantity)
+
+		# Get cart
+		ourcart = self.cart
+		# Update Dictionary/cart
+		ourcart[product_slug] = product_qty
+
+		self.session.modified = True
+
+		thing = self.cart
+		return thing
 

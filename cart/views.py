@@ -7,11 +7,27 @@ from django.http import JsonResponse
 
 def cart_summery(request):
 	# Get The Cart
-
 	cart = Cart(request)
 	cart_products = cart.get_prods()
+	quantity = cart.get_quants()
+	all_total_price = cart.get_all_total_prices()
+	single_total_price = cart.get_single_total_price()
+	#cart_update = cart.update()
 
-	context = {'cart_products':cart_products}
+	
+
+
+	# print(quantity)
+	# print(single_total_price)
+
+
+	context = {'cart_products':cart_products,
+	'quantity':quantity,
+	'single_total_price':single_total_price,
+	'all_total_price':all_total_price,
+	# 'cart_update':cart_update
+	
+	}
 	return render(request, 'cart_summery.html' , context)
 
 
@@ -22,13 +38,14 @@ def cart_add(request):
 	#test for Post
 	if request.POST.get('action') == 'post' :
 		# Get Stuff
-		product_id = int(request.POST.get('product_id')) 
+		product_slug = request.POST.get('product_slug')
+		product_qty = int(request.POST.get('product_qty')) 
 
 		# Lookup Product in DB
-		product = get_object_or_404(Product, id=product_id)
+		product = get_object_or_404(Product, PRDSlug=product_slug)
 
 		# save to session 
-		cart.add(product=product)
+		cart.add(product=product,quantity=product_qty)
 
 		print('Product Name :',product.PRDName)
 
@@ -37,7 +54,7 @@ def cart_add(request):
 		# Return Response
 		#response = JsonResponse({'Product Name':product.PRDName , 'Price':product.PRDPrice})
 		
-		response = JsonResponse({'Product Name':product.PRDName , 'Price':product.PRDPrice, 'qty':cart_quantity})
+		response = JsonResponse({'qty':cart_quantity})
 		return response
 
 
@@ -47,5 +64,19 @@ def cart_delete(request):
 
 
 
+
 def cart_update(request):
-	pass
+	
+	cart = Cart(request)
+	if request.POST.get('action') == 'post':
+		# Get stuff
+		product_slug = request.POST.get('product_slug')
+		product_qty = int(request.POST.get('product_qty'))
+
+		#product = get_object_or_404(Product, PRDSlug=product_slug)
+
+		cart.update(product=product_slug, quantity=product_qty)
+
+		response = JsonResponse({'qty':product_qty})
+		#return redirect('cart_summary')
+		return response
