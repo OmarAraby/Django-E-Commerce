@@ -7,8 +7,8 @@ class OrderItemInline(admin.TabularInline):
     extra = 1
 
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'order_date', 'total_price')
-    list_display_links =('id', 'user')
+    list_display = ('invoice_number', 'user', 'order_date', 'total_price')
+    list_display_links =('invoice_number', 'user')
     inlines = [OrderItemInline]
 
 admin.site.register(Order, OrderAdmin)

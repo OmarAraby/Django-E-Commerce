@@ -5,6 +5,7 @@ from . import views
 app_name='order'
 
 urlpatterns = [
-    path('create/', views.create_order, name='create_order'),
+    path('confirmed/', views.create_order, name='confirmed_order'),
     path('detail/', views.order_detail, name='order_detail'),
+    # path('download_receipt/<int:order_id>/', views.generate_invoice_pdf, name='download_receipt'),
 ]

@@ -1,5 +1,5 @@
 
-{% extends "base.html" %}
+
 {% load static %}
 
 {% block body %}
@@ -13,16 +13,12 @@
       <div class="col-lg-10 col-xl-8">
         <div class="card" style="border-radius: 10px;">
           <div class="card-header px-4 py-5">
-            <h5 class="text-muted mb-0">Your Order Has Been Confirmed, <span style="color: #a8729a;">{{order.user}}</span> !</h5>
+            <h5 class="text-muted mb-0">Confirmed Order ---->  <span style="color: #a8729a;">{{order.user}}</span> !</h5>
           </div>
          
      
           <div class="card-body p-4">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-              <p class="lead fw-normal mb-0" style="color: #a8729a;">Receipt</p>
-              
-            </div>
-      
+            
               
             {% for product in cart_products %}
               
@@ -75,7 +71,7 @@
                     </div>
             {% endfor %}
 
-            {% if cart_products %}
+        
 
             <div class="d-flex justify-content-between pt-2">
               <p class="fw-bold mb-0">Order Details</p>
@@ -98,10 +94,7 @@
             </div>
             
             	
-             <div class="d-flex justify-content-center">
-                <a href="{% url 'order:download_receipt' order_id=order.id %}" class="btn btn-outline-dark btn-block">Download Receipt </a>
-             </div>
-              {% endif %}
+       
  
           </div>
      
