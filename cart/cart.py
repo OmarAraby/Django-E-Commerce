@@ -28,7 +28,7 @@ class Cart():
 
 	    if product_slug in self.cart:
 	        # If the product is already in the cart, you can implement your logic here
-	        pass
+	        self.cart[product_slug] += product_qty
 	    else:
 	        self.cart[product_slug] = int(product_qty)
 

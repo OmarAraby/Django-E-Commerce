@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block body %}
+
+<!-- Section-->
+<header class="bg-dark py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">Order Confirmation</h1>
+            <p class="lead fw-normal text-white-50 mb-0">Explore Your Cart Section</p>
+        </div>
+    </div>
+</header>
+<!-- Section-->
+<section class="py-5">
+
+    <div class="container px-4 px-lg-5 mt-5">
+
+
+    	<h1>Order Confirmation</h1>
+    
+		    <p>Thank you for your order! Your order details are as follows:</p>
+
+		    <p><strong>Order ID:</strong> {{ order.id }}</p>
+		    <p><strong>Order Date:</strong> {{ order.order_date }}</p>
+		    <p><strong>Total Price:</strong> ${{ order.total_price }}</p>
+
+		    <h2>Ordered Items</h2>.
+		    <ul>
+		        {% for order_item in order.order_items.all %}
+		            <li>
+		                {{ order_item.quantity }} x {{ order_item.product.PRDName }} -
+		                ${{ order_item.get_total_price }}
+		            </li>
+		        {% endfor %}
+		    </ul>
+
+ 		   <p>Thank you for shopping with us!</p>
+    </div>
+</section>
+
+
+<h1> </h1>
+
+
+
+
+	
+{% endblock body %}
+
+

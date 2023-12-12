@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'product',
     'settings',
     'cart',
+    'order',
 
 
     'django_countries',
