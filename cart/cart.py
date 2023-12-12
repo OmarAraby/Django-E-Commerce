@@ -92,3 +92,10 @@ class Cart():
 		thing = self.cart
 		return thing
 
+
+
+	def remove(self, product_slug):
+	    if product_slug in self.cart:
+	        del self.cart[product_slug]
+	        self.session.modified = True
+

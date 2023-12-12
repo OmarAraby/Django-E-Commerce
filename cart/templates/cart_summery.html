@@ -39,7 +39,7 @@
                                     <p style="font-size: 20px;">{{product}}</p>
                                     <small style="font-size: 20px;">Price: ${{product.PRDPrice}}</small>
                                     <br><br>
-                                    <a href="" class="btn btn-outline-dark mt-auto">Delete</a>
+                                    <a href="{% url 'cart:cart_delete' product.PRDSlug %}" class="btn btn-outline-dark mt-auto">Delete</a>
                                     <a href="#" class="btn btn-outline-dark mt-auto update-cart" data-index="{{ product.PRDSlug }}">Update</a>
 
 

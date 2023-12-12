@@ -1,8 +1,10 @@
-from django.shortcuts import render , get_object_or_404
+from django.shortcuts import render , get_object_or_404 , redirect
+from django.urls import reverse
 from .cart import Cart
 from product.models import Product
 from django.http import JsonResponse
 # Create your views here.
+
 
 
 def cart_summery(request):
@@ -29,6 +31,10 @@ def cart_summery(request):
 	
 	}
 	return render(request, 'cart_summery.html' , context)
+
+
+
+
 
 
 
@@ -59,8 +65,19 @@ def cart_add(request):
 
 
 
-def cart_delete(request):
-	pass
+
+
+
+
+
+def cart_delete(request, product_slug):
+    cart = Cart(request)
+    cart.remove(product_slug)
+    return redirect(reverse('cart:cart_summery'))
+
+
+
+
 
 
 
