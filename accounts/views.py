@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.contrib.auth import login, authenticate
 from django.urls import reverse
 from .models import Profile
+from order.models import Order
 from .forms import UserForm , ProfileForm
 from django.contrib.auth.decorators import login_required
 # Create your views here.
@@ -39,7 +40,9 @@ def signup(request):
 @login_required(login_url='/accounts/login/')
 def profile(request , slug):
     profile = get_object_or_404(Profile , slug=slug)
-    context = {'profile':profile}
+    # Get the latest 5 orders for the user
+    latest_orders = Order.objects.filter(user=profile.user).order_by('-order_date')[:5]
+    context = {'profile':profile,'latest_orders':latest_orders}
 
     return render(request , 'profiles/profile.html', context)
 
